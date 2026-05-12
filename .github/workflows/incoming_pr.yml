@@ -55,12 +55,17 @@ jobs:
 
       - name: Debug Snowflake session
         run: |
-          snow sql -q "
-            SELECT
-              CURRENT_ROLE(),
-              CURRENT_WAREHOUSE(),
-              CURRENT_DATABASE();
-          "
+          snow sql \
+            --account "$SNOWFLAKE_ACCOUNT" \
+            --user "$SNOWFLAKE_USER" \
+            --role "$SNOWFLAKE_ROLE" \
+            --warehouse "$SNOWFLAKE_WAREHOUSE" \
+            -q "
+              SELECT
+                CURRENT_ROLE(),
+                CURRENT_WAREHOUSE(),
+                CURRENT_DATABASE();
+            "
       # for debug end
 
       # The -x is shorthand for --temporary-connection
